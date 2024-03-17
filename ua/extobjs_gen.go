@@ -634,7 +634,7 @@ type TimeZoneDataType struct {
 }
 
 type ApplicationDescription struct {
-	ApplicationURI      string
+	ApplicationURI      string `json:"applicationUri"`
 	ProductURI          string
 	ApplicationName     *LocalizedText
 	ApplicationType     ApplicationType
