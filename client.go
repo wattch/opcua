@@ -878,6 +878,10 @@ func (c *Client) ActivateSession(ctx context.Context, s *Session) error {
 		UserIdentityToken:          ua.NewExtensionObject(s.cfg.UserIdentityToken),
 		UserTokenSignature:         s.cfg.UserTokenSignature,
 	}
+	debug.Printf("Authentication Token: %s", s.resp.AuthenticationToken)
+	debug.Printf("Activate session request: %+v", req)
+	debug.Printf("Activate session signature: %+v", req.ClientSignature)
+	debug.Printf("User identity token: %+v", req.UserIdentityToken)
 	return c.SecureChannel().SendRequest(ctx, req, s.resp.AuthenticationToken, func(v interface{}) error {
 		var res *ua.ActivateSessionResponse
 		if err := safeAssign(v, &res); err != nil {
