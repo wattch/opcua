@@ -344,7 +344,6 @@ func SecurityFromEndpoint(ep *ua.EndpointDescription, authType ua.UserTokenType)
 		cfg.sechan.SecurityMode = ep.SecurityMode
 		cfg.sechan.RemoteCertificate = ep.ServerCertificate
 		cfg.sechan.Thumbprint = uapolicy.Thumbprint(ep.ServerCertificate)
-		debug.Printf("Tokens: %+v", ep.UserIdentityTokens)
 
 		for _, t := range ep.UserIdentityTokens {
 			if t.TokenType != authType {
