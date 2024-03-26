@@ -966,7 +966,7 @@ func (t *CreateSessionRequest) SetHeader(h *RequestHeader) {
 type CreateSessionResponse struct {
 	ResponseHeader             *ResponseHeader
 	SessionID                  *NodeID
-	AuthenticationToken        *NodeID `json:"authenticationToken"`
+	AuthenticationToken        *NodeID
 	RevisedSessionTimeout      float64
 	ServerNonce                []byte
 	ServerCertificate          []byte
