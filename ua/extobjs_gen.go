@@ -1012,7 +1012,7 @@ type IssuedIdentityToken struct {
 
 type ActivateSessionRequest struct {
 	RequestHeader              *RequestHeader
-	ClientSignature            *SignatureData `json:"clientSignature"`
+	ClientSignature            *SignatureData
 	ClientSoftwareCertificates []*SignedSoftwareCertificate
 	LocaleIDs                  []string
 	UserIdentityToken          *ExtensionObject
