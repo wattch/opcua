@@ -769,8 +769,6 @@ func (c *Client) CreateSession(ctx context.Context, cfg *uasc.SessionConfig) (*S
 			return err
 		}
 
-		debug.Printf("Create session response: %+v", res)
-
 		err := c.SecureChannel().VerifySessionSignature(res.ServerCertificate, nonce, res.ServerSignature.Signature)
 		if err != nil {
 			log.Printf("error verifying session signature: %s", err)
@@ -854,7 +852,6 @@ func (c *Client) ActivateSession(ctx context.Context, s *Session) error {
 		tok.EncryptionAlgorithm = passAlg
 
 	case *ua.X509IdentityToken:
-		debug.Printf("Using X509 Identity Token...")
 		tokSig, tokSigAlg, err := c.SecureChannel().NewUserTokenSignature(s.cfg.AuthPolicyURI, s.serverCertificate, s.serverNonce)
 		if err != nil {
 			log.Printf("error creating session signature: %s", err)
@@ -879,11 +876,6 @@ func (c *Client) ActivateSession(ctx context.Context, s *Session) error {
 		UserIdentityToken:          ua.NewExtensionObject(s.cfg.UserIdentityToken),
 		UserTokenSignature:         s.cfg.UserTokenSignature,
 	}
-	debug.Printf("Authentication Token: %s", s.resp.AuthenticationToken)
-	debug.Printf("Activate session request: %+v", req)
-	debug.Printf("Activate session signature: %+v", req.ClientSignature)
-	debug.Printf("User identity token: %+v", req.UserIdentityToken)
-	debug.Printf("User identity token signature: %+v", req.UserTokenSignature)
 	return c.SecureChannel().SendRequest(ctx, req, s.resp.AuthenticationToken, func(v interface{}) error {
 		var res *ua.ActivateSessionResponse
 		if err := safeAssign(v, &res); err != nil {

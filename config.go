@@ -15,7 +15,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gopcua/opcua/debug"
 	"github.com/gopcua/opcua/errors"
 	"github.com/gopcua/opcua/ua"
 	"github.com/gopcua/opcua/uacp"
@@ -344,14 +343,12 @@ func SecurityFromEndpoint(ep *ua.EndpointDescription, authType ua.UserTokenType)
 		cfg.sechan.SecurityMode = ep.SecurityMode
 		cfg.sechan.RemoteCertificate = ep.ServerCertificate
 		cfg.sechan.Thumbprint = uapolicy.Thumbprint(ep.ServerCertificate)
-		debug.Printf("Tokens: %+v", ep.UserIdentityTokens)
 
 		for _, t := range ep.UserIdentityTokens {
 			if t.TokenType != authType {
 				continue
 			}
 
-			debug.Printf("Token: %+v", t)
 			if cfg.session.UserIdentityToken == nil {
 				switch authType {
 				case ua.UserTokenTypeAnonymous:
@@ -369,8 +366,6 @@ func SecurityFromEndpoint(ep *ua.EndpointDescription, authType ua.UserTokenType)
 			cfg.session.AuthPolicyURI = t.SecurityPolicyURI
 			return nil
 		}
-
-		debug.Printf("Session: %+v", cfg.session)
 
 		if cfg.session.UserIdentityToken == nil {
 			cfg.session.UserIdentityToken = &ua.AnonymousIdentityToken{PolicyID: defaultAnonymousPolicyID}

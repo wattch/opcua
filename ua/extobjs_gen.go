@@ -634,7 +634,7 @@ type TimeZoneDataType struct {
 }
 
 type ApplicationDescription struct {
-	ApplicationURI      string `json:"applicationUri"`
+	ApplicationURI      string
 	ProductURI          string
 	ApplicationName     *LocalizedText
 	ApplicationType     ApplicationType
@@ -966,7 +966,7 @@ func (t *CreateSessionRequest) SetHeader(h *RequestHeader) {
 type CreateSessionResponse struct {
 	ResponseHeader             *ResponseHeader
 	SessionID                  *NodeID
-	AuthenticationToken        *NodeID `json:"authenticationToken"`
+	AuthenticationToken        *NodeID
 	RevisedSessionTimeout      float64
 	ServerNonce                []byte
 	ServerCertificate          []byte
@@ -1012,7 +1012,7 @@ type IssuedIdentityToken struct {
 
 type ActivateSessionRequest struct {
 	RequestHeader              *RequestHeader
-	ClientSignature            *SignatureData `json:"clientSignature"`
+	ClientSignature            *SignatureData
 	ClientSoftwareCertificates []*SignedSoftwareCertificate
 	LocaleIDs                  []string
 	UserIdentityToken          *ExtensionObject
